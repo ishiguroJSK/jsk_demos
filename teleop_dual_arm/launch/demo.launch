@@ -1,0 +1,5 @@
+<launch>
+  <include file="$(find iiwa_gazebo)/launch/iiwa_gazebo.launch">
+    <arg name="trajectory" default="false"/>
+  </include>
+</launch>
