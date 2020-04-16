@@ -1,0 +1,30 @@
+# - git:
+#     local-name: hrpsys
+#     uri: https://github.com/fkanehiro/hrpsys-base.git
+# - git:
+#     local-name: rtmros_common
+#     uri: https://github.com/start-jsk/rtmros_common.git
+# - git:
+#     local-name: rtmros_gazebo
+#     uri: https://github.com/Naoki-Hiraoka/rtmros_gazebo.git
+#     version: melodic-test
+# - git:
+#     local-name: rtmros_tutorials
+#     uri: https://github.com/Naoki-Hiraoka/rtmros_tutorials.git
+#     version: melodic-test
+- git:
+    local-name: jsk_demos
+    uri: https://github.com/jsk-ros-pkg/jsk_demos.git
+- git:
+    local-name: iiwa_stack
+    uri: https://github.com/IFL-CAMP/iiwa_stack.git
+# - git:
+#     local-name: universal_robot
+#     uri: https://github.com/ros-industrial/universal_robot.git
+#     version: melodic-devel
+# - git:
+#     local-name: moveit
+#     uri: https://github.com/ros-planning/moveit.git
+# - git:
+#     local-name: moveit_msgs
+#     uri: https://github.com/ros-planning/moveit_msgs.git
