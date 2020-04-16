@@ -1,5 +1,7 @@
 # teleop_dual_arm
 
+sample.rosinstall見ながら環境構成&`rosdep install -y --from-paths . --ignore-src`
+
 OpenHRPの運動学・動力学関数を使うために，iiwa_stackからxacro→urdf→colladaとOpenHRPで読める形式に変換
 ```
 roscd teleop_dual_arm
