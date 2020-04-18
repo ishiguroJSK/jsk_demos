@@ -6,16 +6,16 @@
    <property name="totalTime" value="2000000.0"/>
    <property name="method" value="EULER"/>
   </item>
-  <item class="com.generalrobotix.ui.item.GrxRTSItem" name="iiwa14" select="true">
-   <property name="iiwa14(Robot)0.period" value="0.002"/>
+  <item class="com.generalrobotix.ui.item.GrxRTSItem" name="iiwa14d" select="true">
+   <property name="iiwa14d(Robot)0.period" value="0.002"/>
    <property name="HGcontroller0.period" value="0.002"/>
    <property name="HGcontroller0.factory" value="HGcontroller"/>
-   <property name="connection" value="HGcontroller0.qOut:iiwa14(Robot)0.qRef"/>
-   <property name="connection" value="HGcontroller0.dqOut:iiwa14(Robot)0.dqRef"/>
-   <property name="connection" value="HGcontroller0.ddqOut:iiwa14(Robot)0.ddqRef"/>
+   <property name="connection" value="HGcontroller0.qOut:iiwa14d(Robot)0.qRef"/>
+   <property name="connection" value="HGcontroller0.dqOut:iiwa14d(Robot)0.dqRef"/>
+   <property name="connection" value="HGcontroller0.ddqOut:iiwa14d(Robot)0.ddqRef"/>
   </item>
-  <item class="com.generalrobotix.ui.item.GrxModelItem" name="sample1" url="/home/leus/catkin_ws/kuka/src/jsk_demos/teleop_dual_arm/iiwa14.dae">
-   <property name="rtcName" value="iiwa14(Robot)0"/>
+  <item class="com.generalrobotix.ui.item.GrxModelItem" name="sample1" url="/home/leus/catkin_ws/kuka/src/jsk_demos/teleop_dual_arm/iiwa14d.dae">
+   <property name="rtcName" value="iiwa14d(Robot)0"/>
    <property name="inport" value="qRef:JOINT_VALUE"/>
    <property name="inport" value="dqRef:JOINT_VELOCITY"/>
    <property name="inport" value="ddqRef:JOINT_ACCELERATION"/>
@@ -33,7 +33,7 @@
    <property name="WAIST.translation" value="0  0  0.7235"/>
    <property name="WAIST.rotation" value="1 0 0 0"/>
    <property name="WAIST.mode" value="Torque"/>
-   <property name="controller" value="iiwa14"/>
+   <property name="controller" value="iiwa14d"/>
    <property name="RLEG_HIP_R.angle" value="0.0"/>
    <property name="RLEG_HIP_R.mode" value="HighGain"/>
    <property name="RLEG_HIP_R.NumOfAABB" value="1"/>
@@ -128,7 +128,7 @@
    <property name="interval" value="100"/>
    <property name="RobotHardwareServiceRTC" value="RobotHardware0"/>
    <property name="robotPort" value="2809"/>
-   <property name="ROBOT" value="iiwa14"/>
+   <property name="ROBOT" value="iiwa14d"/>
   </view>
   <view class="com.generalrobotix.ui.view.Grx3DView" name="3DView">
    <property name="view.mode" value="Room"/>

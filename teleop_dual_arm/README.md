@@ -2,7 +2,7 @@
 
 Gazebo起動
 ```
-reset; pkill -9 gzserver; roslaunch teleop_dual_arm demo.launch
+reset; pkill -9 gzserver; roslaunch teleop_dual_arm iiwa14d_gazebo.launch
 ```
 
 test (IKは解いてない)

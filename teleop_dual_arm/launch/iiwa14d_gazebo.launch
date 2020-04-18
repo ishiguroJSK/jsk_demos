@@ -1,0 +1,6 @@
+<launch>
+  <include file="$(find iiwa_gazebo)/launch/iiwad_gazebo.launch">
+    <arg name="model"       default="iiwa14d"/>
+    <arg name="trajectory"  default="false"/>
+  </include>
+</launch>

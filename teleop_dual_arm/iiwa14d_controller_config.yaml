@@ -1,0 +1,53 @@
+controller_configuration:
+  - group_name: rarm
+    controller_name: /rarm_controller
+    joint_list:
+      - iiwa_rarm_joint_1
+      - iiwa_rarm_joint_2
+      - iiwa_rarm_joint_3
+      - iiwa_rarm_joint_4
+      - iiwa_rarm_joint_5
+      - iiwa_rarm_joint_6
+      - iiwa_rarm_joint_7
+  - group_name: larm
+    controller_name: /larm_controller
+    joint_list:
+      - iiwa_larm_joint_1
+      - iiwa_larm_joint_2
+      - iiwa_larm_joint_3
+      - iiwa_larm_joint_4
+      - iiwa_larm_joint_5
+      - iiwa_larm_joint_6
+      - iiwa_larm_joint_7
+#  - group_name: torso
+#    controller_name: /torso_controller
+#    joint_list:
+#      - WAIST_P
+#      - WAIST_R
+#      - CHEST
+#  - group_name: rhand
+#    controller_name: /rhand_controller
+#    joint_list:
+#      - RARM_WRIST_R
+#  - group_name: lhand
+#    controller_name: /lhand_controller
+#    joint_list:
+#      - LARM_WRIST_R
+#  - group_name: rleg
+#    controller_name: /rleg_controller
+#    joint_list:
+#      - RLEG_HIP_R
+#      - RLEG_HIP_P
+#      - RLEG_HIP_Y
+#      - RLEG_KNEE
+#      - RLEG_ANKLE_P
+#      - RLEG_ANKLE_R
+#  - group_name: lleg
+#    controller_name: /lleg_controller
+#    joint_list:
+#      - LLEG_HIP_R
+#      - LLEG_HIP_P
+#      - LLEG_HIP_Y
+#      - LLEG_KNEE
+#      - LLEG_ANKLE_P
+#      - LLEG_ANKLE_R

@@ -67,9 +67,9 @@ target_link_libraries(ik_solver
   ${catkin_LIBRARIES}
 )
 
-### convert from iiwa_stack/iiwa_description/uedf/iiwa14.urdf.xacro to iiwa14.urdf and iiwa14.dae
+### convert from iiwa_stack/iiwa_description/uedf/iiwa14d.urdf.xacro to iiwa14d.urdf and iiwa14d.dae
 execute_process(COMMAND rospack find iiwa_description OUTPUT_VARIABLE iiwa_description_PACKAGE_PATH OUTPUT_STRIP_TRAILING_WHITESPACE )
-execute_process(COMMAND rosrun xacro xacro ${iiwa_description_PACKAGE_PATH}/urdf/iiwa14.urdf.xacro OUTPUT_FILE ${CMAKE_CURRENT_SOURCE_DIR}/iiwa14.urdf)
-execute_process(COMMAND rosrun collada_urdf urdf_to_collada ${CMAKE_CURRENT_SOURCE_DIR}/iiwa14.urdf ${CMAKE_CURRENT_SOURCE_DIR}/iiwa14.dae)
+execute_process(COMMAND rosrun xacro xacro ${iiwa_description_PACKAGE_PATH}/urdf/iiwa14d.urdf.xacro OUTPUT_FILE ${CMAKE_CURRENT_SOURCE_DIR}/iiwa14d.urdf)
+execute_process(COMMAND rosrun collada_urdf urdf_to_collada ${CMAKE_CURRENT_SOURCE_DIR}/iiwa14d.urdf ${CMAKE_CURRENT_SOURCE_DIR}/iiwa14d.dae)
 
 #install(DIRECTORY launch DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
