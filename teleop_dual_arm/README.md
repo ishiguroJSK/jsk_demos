@@ -1,5 +1,7 @@
 # teleop_dual_arm
 
+sample.rosinstall見ながら環境構成&`rosdep install -y --from-paths . --ignore-src`
+
 Gazebo起動
 ```
 reset; pkill -9 gzserver; roslaunch teleop_dual_arm iiwa14d_gazebo.launch
@@ -14,6 +16,8 @@ hrpsys起動
 ```
 reset; rtmlaunch teleop_dual_arm iiwa14.launch
 ```
+
+`catkin bt --force-cmake`でモデル再生成される
 
 TODO
 - hrpsysとGazeboはまだ独立に動いてるだけ
