@@ -1,0 +1,85 @@
+hrpsys_gazebo_configuration:
+### velocity feedback for joint control, use parameter gains/joint_name/p_v
+  use_velocity_feedback: false
+  use_joint_effort: true
+# iob_rate: 200
+### loose synchronization default true
+# use_loose_synchronized: false
+### synchronized hrpsys and gazebo
+# use_synchronized_command: false
+# iob_substeps: 5
+### name of robot (using for namespace)
+  robotname: iiwa14d
+### joint_id (order) conversion from gazebo to hrpsys, joint_id_list[gazebo_id] := hrpsys_id
+  # joint_id_list: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+  joint_id_list: [2, 3, 4, 5, 6, 7, 8,   11, 12, 13, 14, 15, 16, 17]
+### joints : list used in gazebo, sizeof(joint_id_list) == sizeof(joints)
+  joints:
+    - iiwa_larm_joint_1
+    - iiwa_larm_joint_2
+    - iiwa_larm_joint_3
+    - iiwa_larm_joint_4
+    - iiwa_larm_joint_5
+    - iiwa_larm_joint_6
+    - iiwa_larm_joint_7
+    - iiwa_rarm_joint_1
+    - iiwa_rarm_joint_2
+    - iiwa_rarm_joint_3
+    - iiwa_rarm_joint_4
+    - iiwa_rarm_joint_5
+    - iiwa_rarm_joint_6
+    - iiwa_rarm_joint_7
+## comment for joint index
+# 0  - iiwa_tors0_link   (fixed)
+# 1  - iiwa_larm_joint_0 (fixed)
+# 2  - iiwa_larm_joint_1
+# 3  - iiwa_larm_joint_2
+# 4  - iiwa_larm_joint_3
+# 5  - iiwa_larm_joint_4
+# 6  - iiwa_larm_joint_5
+# 7  - iiwa_larm_joint_6
+# 8  - iiwa_larm_joint_7
+# 9  - iiwa_larm_joint_ee (fixed)
+# 10 - iiwa_rarm_joint_0  (fixed)
+# 11 - iiwa_rarm_joint_1
+# 12 - iiwa_rarm_joint_2
+# 13 - iiwa_rarm_joint_3
+# 14 - iiwa_rarm_joint_4
+# 15 - iiwa_rarm_joint_5
+# 16 - iiwa_rarm_joint_6
+# 17 - iiwa_rarm_joint_7
+# 18 - iiwa_rarm_joint_ee (fixed)
+## joint gain settings
+  gains:
+    iiwa_larm_joint_1:      {p:  2000.0, d:  0.1, i: 0.0, vp:  1.0, i_clamp: 0.0, p_v: 250.0}
+    iiwa_larm_joint_2:      {p:  2000.0, d:  0.1, i: 0.0, vp:  1.0, i_clamp: 0.0, p_v: 250.0}
+    iiwa_larm_joint_3:      {p:  2000.0, d:  0.1, i: 0.0, vp:  1.0, i_clamp: 0.0, p_v: 250.0}
+    iiwa_larm_joint_4:      {p:  2000.0, d:  0.1, i: 0.0, vp:  1.0, i_clamp: 0.0, p_v: 250.0}
+    iiwa_larm_joint_5:      {p:  2000.0, d:  0.1, i: 0.0, vp:  1.0, i_clamp: 0.0, p_v: 250.0}
+    iiwa_larm_joint_6:      {p:  2000.0, d:  0.1, i: 0.0, vp:  1.0, i_clamp: 0.0, p_v: 250.0}
+    iiwa_larm_joint_7:      {p:  2000.0, d:  0.1, i: 0.0, vp:  1.0, i_clamp: 0.0, p_v: 250.0}
+    iiwa_rarm_joint_1:      {p:  2000.0, d:  0.1, i: 0.0, vp:  1.0, i_clamp: 0.0, p_v: 250.0}
+    iiwa_rarm_joint_2:      {p:  2000.0, d:  0.1, i: 0.0, vp:  1.0, i_clamp: 0.0, p_v: 250.0}
+    iiwa_rarm_joint_3:      {p:  2000.0, d:  0.1, i: 0.0, vp:  1.0, i_clamp: 0.0, p_v: 250.0}
+    iiwa_rarm_joint_4:      {p:  2000.0, d:  0.1, i: 0.0, vp:  1.0, i_clamp: 0.0, p_v: 250.0}
+    iiwa_rarm_joint_5:      {p:  2000.0, d:  0.1, i: 0.0, vp:  1.0, i_clamp: 0.0, p_v: 250.0}
+    iiwa_rarm_joint_6:      {p:  2000.0, d:  0.1, i: 0.0, vp:  1.0, i_clamp: 0.0, p_v: 250.0}
+    iiwa_rarm_joint_7:      {p:  2000.0, d:  0.1, i: 0.0, vp:  1.0, i_clamp: 0.0, p_v: 250.0}
+## force sensor settings
+## list of force sensorname
+  force_torque_sensors:
+    - lhsensor
+    - rhsensor
+## configuration of force sensor
+## key of force_torque_sensors_config should be a member of force_torque_sensors
+  force_torque_sensors_config:
+    lhsensor: {joint_name: 'iiwa_larm_joint_7', frame_id: 'iiwa_larm_link_7'}
+    rhsensor: {joint_name: 'iiwa_rarm_joint_7', frame_id: 'iiwa_rarm_link_7'}
+## IMU sensor settings
+## configuration of IMU sensor
+## key of imu_sensors_config should be a member of imu_sensors
+## pose of IMU sensor should be written in URDF
+  imu_sensors:
+    - imu_sensor0
+  imu_sensors_config:
+    imu_sensor0: {ros_name: 'imu_sensor', link_name: 'iiwa_torso_link', frame_id: 'iiwa_torso_link'}

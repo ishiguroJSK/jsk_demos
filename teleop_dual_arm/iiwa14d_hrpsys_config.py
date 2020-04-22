@@ -51,6 +51,15 @@ class iiwa14dRobotHrpsysConfigurator(HrpsysConfigurator):
     #def setStAbcParameters (self):
         # not in use
 
+
+    def iiwa14dInitPose (self):
+        return [0,  0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+    def setInitPose(self):
+        self.seq_svc.setJointAngles(self.iiwa14dInitPose(), 5.0)
+
+
+
     def __init__(self, robotname=""):
         HrpsysConfigurator.__init__(self)
         self.defJointGroups()
