@@ -51,20 +51,20 @@ hrpsys_gazebo_configuration:
 # 18 - iiwa_rarm_joint_ee (fixed)
 ## joint gain settings
   gains:
-    iiwa_larm_joint_1:      {p:  2000.0, d:  0.1, i: 0.0, vp:  1.0, i_clamp: 0.0, p_v: 250.0}
-    iiwa_larm_joint_2:      {p:  2000.0, d:  0.1, i: 0.0, vp:  1.0, i_clamp: 0.0, p_v: 250.0}
-    iiwa_larm_joint_3:      {p:  2000.0, d:  0.1, i: 0.0, vp:  1.0, i_clamp: 0.0, p_v: 250.0}
-    iiwa_larm_joint_4:      {p:  2000.0, d:  0.1, i: 0.0, vp:  1.0, i_clamp: 0.0, p_v: 250.0}
-    iiwa_larm_joint_5:      {p:  2000.0, d:  0.1, i: 0.0, vp:  1.0, i_clamp: 0.0, p_v: 250.0}
-    iiwa_larm_joint_6:      {p:  2000.0, d:  0.1, i: 0.0, vp:  1.0, i_clamp: 0.0, p_v: 250.0}
-    iiwa_larm_joint_7:      {p:  2000.0, d:  0.1, i: 0.0, vp:  1.0, i_clamp: 0.0, p_v: 250.0}
-    iiwa_rarm_joint_1:      {p:  2000.0, d:  0.1, i: 0.0, vp:  1.0, i_clamp: 0.0, p_v: 250.0}
-    iiwa_rarm_joint_2:      {p:  2000.0, d:  0.1, i: 0.0, vp:  1.0, i_clamp: 0.0, p_v: 250.0}
-    iiwa_rarm_joint_3:      {p:  2000.0, d:  0.1, i: 0.0, vp:  1.0, i_clamp: 0.0, p_v: 250.0}
-    iiwa_rarm_joint_4:      {p:  2000.0, d:  0.1, i: 0.0, vp:  1.0, i_clamp: 0.0, p_v: 250.0}
-    iiwa_rarm_joint_5:      {p:  2000.0, d:  0.1, i: 0.0, vp:  1.0, i_clamp: 0.0, p_v: 250.0}
-    iiwa_rarm_joint_6:      {p:  2000.0, d:  0.1, i: 0.0, vp:  1.0, i_clamp: 0.0, p_v: 250.0}
-    iiwa_rarm_joint_7:      {p:  2000.0, d:  0.1, i: 0.0, vp:  1.0, i_clamp: 0.0, p_v: 250.0}
+    iiwa_larm_joint_1: {p: 500, d: 30, i:  15, vp: 1.0, i_clamp: 30, p_v: 250.0}
+    iiwa_larm_joint_2: {p: 200, d: 10, i:  10, vp: 1.0, i_clamp: 30, p_v: 250.0}
+    iiwa_larm_joint_3: {p:  65, d: 10, i:  15, vp: 1.0, i_clamp: 30, p_v: 250.0}
+    iiwa_larm_joint_4: {p:  31, d:  7, i:  12, vp: 1.0, i_clamp: 30, p_v: 250.0}
+    iiwa_larm_joint_5: {p:  23, d:  3, i:   5, vp: 1.0, i_clamp: 30, p_v: 250.0}
+    iiwa_larm_joint_6: {p:  13, d:  3, i:   3, vp: 1.0, i_clamp: 30, p_v: 250.0}
+    iiwa_larm_joint_7: {p:  17, d:  2, i: 2.5, vp: 1.0, i_clamp: 10, p_v: 250.0}
+    iiwa_rarm_joint_1: {p: 500, d: 30, i:  15, vp: 1.0, i_clamp: 30, p_v: 250.0}
+    iiwa_rarm_joint_2: {p: 200, d: 10, i:  10, vp: 1.0, i_clamp: 30, p_v: 250.0}
+    iiwa_rarm_joint_3: {p:  65, d: 10, i:  15, vp: 1.0, i_clamp: 30, p_v: 250.0}
+    iiwa_rarm_joint_4: {p:  31, d:  7, i:  12, vp: 1.0, i_clamp: 30, p_v: 250.0}
+    iiwa_rarm_joint_5: {p:  23, d:  3, i:   5, vp: 1.0, i_clamp: 30, p_v: 250.0}
+    iiwa_rarm_joint_6: {p:  13, d:  3, i:   3, vp: 1.0, i_clamp: 30, p_v: 250.0}
+    iiwa_rarm_joint_7: {p:  17, d:  2, i: 2.5, vp: 1.0, i_clamp: 10, p_v: 250.0}
 ## force sensor settings
 ## list of force sensorname
   force_torque_sensors:

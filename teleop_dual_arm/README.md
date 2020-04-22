@@ -11,13 +11,16 @@ reset; pkill -9 gzserver; roslaunch teleop_dual_arm gazebo_iiwa14d_no_controller
 ```
 reset; rtmlaunch teleop_dual_arm iiwa14d_hrpsys_bringup.launch
 ```
-現状存在しないRTCなどに対してWait for *** が出ている
+現状存在しないRTCなどに対してWait for *** が出るので，しばらく待つ必要がある
 
-# test
+# RViz起動
 ```
-ipython -i `rospack find teleop_dual_arm`/iiwa14d_hrpsys_config.py "iiwa14d(Robot)0"
-hcf.setTargetPose("larm", [1,0.2,1], [0,3.14,0], 1)
-hcf.setTargetPose("rarm", [1,-0.2,1], [0,3.14,0], 1)
+rviz -d `rospack find teleop_dual_arm`/iiwa14d.rviz
+```
+
+# IKデモ起動
+```
+rosrun teleop_dual_arm sample_ik_call.py
 ```
 
 # モデル再生成
