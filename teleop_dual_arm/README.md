@@ -23,12 +23,18 @@ rviz -d `rospack find teleop_dual_arm`/iiwa14d.rviz
 rosrun teleop_dual_arm sample_ik_call.py
 ```
 
+# xacro編集＆確認
+改造したiiwa14dのxacroはiiwa_descriptionに置いてある
+```
+roslaunch urdf_tutorial display.launch model:=`rospack find iiwa_description`/urdf/iiwa14d.urdf.xacro gui:=false
+```
+
 # モデル再生成
 iiwa_descriptionのxacroから諸々生成しているので
 ```
 catkin bt --force-cmake
 ```
-で手動で再生成できる
+でteleop_dual_arm内の.urdfと.daeが手動で再生成できる
 
 # 注意事項
 - iiwa7   = KUKA LBR iiwa  7kg 可搬モデル

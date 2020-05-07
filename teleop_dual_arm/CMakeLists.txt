@@ -78,8 +78,13 @@ execute_process(COMMAND rospack find hrpsys_ros_bridge_tutorials OUTPUT_VARIABLE
 file(WRITE iiwa14d.conf "
 model: file://${teleop_dual_arm_PACKAGE_PATH}/iiwa14d.dae
 dt: 0.002
-end_effectors: larm,iiwa_larm_joint_7,iiwa_larm_joint_0, 0,0,0, 0,0,0,0, rarm,iiwa_rarm_joint_7,iiwa_rarm_joint_0, 0,0,0, 0,0,0,0
+# link pose R is forcibly set with InitPose. Be careful with ee attached link init pose
+end_effectors: larm,iiwa_larm_joint_ee,iiwa_torso_joint, 0.282842712,0.282842712,0, 0,0,1,0.785398163, rarm,iiwa_rarm_joint_ee,iiwa_torso_joint, 0.282842712,-0.282842712,0, 0,0,1,-0.785398163
 pdgains_sim_file_name: ${teleop_dual_arm_PACKAGE_PATH}/iiwa14d.PDgain.dat
+#\ SequencePlayer\ optional\ data\ (contactStates\ x\ 4\ +\ controlSwingTime\ x\ 4\ (4\ is\ lfsensor,\ rfsensor,\ lhsensor,\ rhsensor) 
+seq_optional_data_dim: 4
+#abc_leg_offset: 0,0.09,0
+#collision_pair: RARM_WRIST_P:WAIST LARM_WRIST_P:WAIST RARM_WRIST_P:RLEG_HIP_R LARM_WRIST_P:LLEG_HIP_R RARM_WRIST_R:RLEG_HIP_R LARM_WRIST_R:LLEG_HIP_R
 ")
 file(WRITE iiwa14d.PDgain.dat "
 10000 1000

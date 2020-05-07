@@ -47,13 +47,13 @@ if __name__ == '__main__':
             request = OpenHRP_SequencePlayerService_setTargetPoseRequest()
             request.name = 'larm'
             request.xyz = [x, y+0.1, z]
-            request.rpy = [math.pi/2, 0, 0]
+            request.rpy = [0, math.pi, 0]
             request.tm = 0.5
             resp = ik_call_handler(request)
             rospy.loginfo("larm setTargetPose call = "+str(resp))
             request.name = 'rarm'
             request.xyz = [x, y-0.1, z]
-            request.rpy = [-math.pi/2, 0, 0]
+            request.rpy = [0, math.pi, 0]
             request.tm = 0.5
             resp = ik_call_handler(request)
             rospy.loginfo("rarm setTargetPose call = "+str(resp))
