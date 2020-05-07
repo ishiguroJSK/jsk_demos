@@ -72,4 +72,42 @@ execute_process(COMMAND rospack find iiwa_description OUTPUT_VARIABLE iiwa_descr
 execute_process(COMMAND rosrun xacro xacro ${iiwa_description_PACKAGE_PATH}/urdf/iiwa14d.urdf.xacro OUTPUT_FILE ${CMAKE_CURRENT_SOURCE_DIR}/iiwa14d.urdf)
 execute_process(COMMAND rosrun collada_urdf urdf_to_collada ${CMAKE_CURRENT_SOURCE_DIR}/iiwa14d.urdf ${CMAKE_CURRENT_SOURCE_DIR}/iiwa14d.dae)
 
+### gen minor conf files
+execute_process(COMMAND rospack find teleop_dual_arm OUTPUT_VARIABLE teleop_dual_arm_PACKAGE_PATH OUTPUT_STRIP_TRAILING_WHITESPACE )
+execute_process(COMMAND rospack find hrpsys_ros_bridge_tutorials OUTPUT_VARIABLE hrpsys_ros_bridge_tutorials_PACKAGE_PATH OUTPUT_STRIP_TRAILING_WHITESPACE )
+file(WRITE iiwa14d.conf "
+model: file://${teleop_dual_arm_PACKAGE_PATH}/iiwa14d.dae
+dt: 0.002
+end_effectors: larm,iiwa_larm_joint_7,iiwa_larm_joint_0, 0,0,0, 0,0,0,0, rarm,iiwa_rarm_joint_7,iiwa_rarm_joint_0, 0,0,0, 0,0,0,0
+pdgains_sim_file_name: ${teleop_dual_arm_PACKAGE_PATH}/iiwa14d.PDgain.dat
+")
+file(WRITE iiwa14d.PDgain.dat "
+10000 1000
+10000 1000
+10000 1000
+10000 1000
+10000 1000
+10000 1000
+10000 1000
+10000 1000
+10000 1000
+10000 1000
+10000 1000
+10000 1000
+10000 1000
+10000 1000
+10000 1000
+10000 1000
+10000 1000
+10000 1000
+10000 1000
+10000 1000
+")
+file(WRITE iiwa14d.RobotHardware.conf "
+model: file://${teleop_dual_arm_PACKAGE_PATH}/iiwa14d.dae
+exec_cxt.periodic.type: hrpExecutionContext
+exec_cxt.periodic.rate: 500
+pdgains.file_name: ${hrpsys_ros_bridge_tutorials_PACKAGE_PATH}/models/PDgains.sav
+")
+
 #install(DIRECTORY launch DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
