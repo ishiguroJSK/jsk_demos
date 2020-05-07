@@ -13,7 +13,7 @@ if __name__ == '__main__':
     rospy.init_node('sample_ik_call_node')
     pub = rospy.Publisher("ik_target_marker", Marker, queue_size=1)
     marker = Marker()
-    rate = rospy.Rate(0.5)
+    rate = rospy.Rate(1)
     rospy.loginfo("Wait for service available")
     rospy.wait_for_service("/SequencePlayerServiceROSBridge/setTargetPose")
     rospy.loginfo("Service ready")
@@ -48,13 +48,13 @@ if __name__ == '__main__':
             request.name = 'larm'
             request.xyz = [x, y+0.1, z]
             request.rpy = [math.pi/2, 0, 0]
-            request.tm = 1
+            request.tm = 0.5
             resp = ik_call_handler(request)
             rospy.loginfo("larm setTargetPose call = "+str(resp))
             request.name = 'rarm'
             request.xyz = [x, y-0.1, z]
             request.rpy = [-math.pi/2, 0, 0]
-            request.tm = 1
+            request.tm = 0.5
             resp = ik_call_handler(request)
             rospy.loginfo("rarm setTargetPose call = "+str(resp))
         except rospy.ServiceException, e:

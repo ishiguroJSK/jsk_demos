@@ -14,6 +14,7 @@ class iiwa14dRobotHrpsysConfigurator(HrpsysConfigurator):
         HrpsysConfigurator.init(self, robotname, url)
         print "initialize rtc parameters"
         #self.setStAbcParameters()
+        self.setResetPose(1)
 
     def getRTCListUnstable(self):
         return [
@@ -26,6 +27,7 @@ class iiwa14dRobotHrpsysConfigurator(HrpsysConfigurator):
             ['rmfo', "RemoveForceSensorLinkOffset"],
             # ['octd', "ObjectContactTurnaroundDetector"],
             # ['es', "EmergencyStopper"],
+            ['wbms', "WholeBodyMasterSlave"],
             ['rfu', "ReferenceForceUpdater"],
             ['ic', "ImpedanceController"],
             # ['abc', "AutoBalancer"],
@@ -55,9 +57,14 @@ class iiwa14dRobotHrpsysConfigurator(HrpsysConfigurator):
     def iiwa14dInitPose (self):
         return [0,  0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-    def setInitPose(self):
-        self.seq_svc.setJointAngles(self.iiwa14dInitPose(), 5.0)
+    def iiwa14dResetPose (self):
+        return [0,  0, 0, 0, 1.5708, 1.5708, 0, 0.7854, 0, 0,  0, 0, 0, 1.5708, -1.5708, 0, -0.7854, 0, 0]
 
+    def setInitPose(self, tm=5):
+        self.seq_svc.setJointAngles(self.iiwa14dInitPose(), tm)
+
+    def setResetPose(self, tm=5):
+        self.seq_svc.setJointAngles(self.iiwa14dResetPose(), tm)
 
 
     def __init__(self, robotname=""):
