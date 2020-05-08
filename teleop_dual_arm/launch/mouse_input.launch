@@ -1,0 +1,11 @@
+<launch>
+  <arg name="DEV" default="/dev/input/mice" />
+  <node pkg="joy_mouse" type="mouse.py" name="joy_mouse" output="screen">
+    <param name="dev" value="$(arg DEV)" />
+    <remap from="joy" to="/mouse/joy" />
+  </node>
+  <node pkg="teleop_dual_arm" type="Joy2PoseStamped.py" name="Joy2PoseStamped" output="screen"/>
+
+
+  
+</launch>

@@ -98,7 +98,7 @@ class App(QMainWindow):
       
 if __name__ == '__main__':
   signal.signal(signal.SIGINT, signal.SIG_DFL)
-  pubs = [rospy.Publisher('/master_'+k+'_pose', PoseStamped, queue_size=10) for k in keys]
+  pubs = [rospy.Publisher('/master_'+k+'_pose', PoseStamped, queue_size=1) for k in keys]
   
   rospy.init_node('humansync_test_publisher', anonymous=True)
   r = rospy.Rate(100)
