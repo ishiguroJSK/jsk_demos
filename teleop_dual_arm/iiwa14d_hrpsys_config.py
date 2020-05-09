@@ -16,6 +16,8 @@ class iiwa14dRobotHrpsysConfigurator(HrpsysConfigurator):
         #self.setStAbcParameters()
         self.setResetPose(1)
         time.sleep(2)
+        self.setPickUpPose(1)
+        time.sleep(2)
         self.wbms_svc.startWholeBodyMasterSlave()
 
     def getRTCListUnstable(self):
@@ -78,8 +80,12 @@ class iiwa14dRobotHrpsysConfigurator(HrpsysConfigurator):
         self.seq_svc.setJointAngles(self.iiwa14dInitPose(), tm)
 
     def setResetPose(self, tm=5):
-        # self.seq_svc.setJointAngles(self.iiwa14dResetPose(), tm)
-        # self.seq_svc.setJointAngles(self.iiwa14dTableTopPose(), tm)
+        self.seq_svc.setJointAngles(self.iiwa14dResetPose(), tm)
+
+    def setTableTopPose(self, tm=5):
+        self.seq_svc.setJointAngles(self.iiwa14dTableTopPose(), tm)
+            
+    def setPickUpPose(self, tm=5):
         self.seq_svc.setJointAngles(self.iiwa14dPickUpPose(), tm)
 
 
