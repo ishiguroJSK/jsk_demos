@@ -16,7 +16,7 @@ keys = ["com", "lleg", "rleg", "larm", "rarm", "head", "lhand", "rhand"]
 ids = ["X","Y","Z","r","p","y"]
 vals = [PoseStamped() for k in keys]
 
-POSMINMAX = 1.0/100.0
+POSMINMAX = 2.0/100.0
 ROTMINMAX = 180.0/180.0*math.pi/100.0
 
 class TestThread(threading.Thread):

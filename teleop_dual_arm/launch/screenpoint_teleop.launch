@@ -1,0 +1,18 @@
+<launch>
+
+  <include file="$(find teleop_dual_arm)/launch/pointcloud_screenpoint_sample.launch"/>
+
+  <node pkg="jsk_topic_tools" type="tf_to_pose.py" name="tf_to_pose">
+    <remap from="~output" to="dual_arm_center"/>
+    <rosparam>
+      src_frame: iiwa_torso_link
+      dst_frame: /ray_target
+      rate: 100
+    </rosparam>
+  </node>
+
+  <node pkg="teleop_dual_arm" type="ScreenPoint2DualArmPose.py" name="ScreenPoint2DualArmPose"/>
+
+  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find teleop_dual_arm)/iiwa14d.rviz"/>
+  
+</launch>

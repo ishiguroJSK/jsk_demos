@@ -35,6 +35,30 @@ rosdep忘れずに
 ```
 rosdep install -y --from-paths . --ignore-src
 ```
+gazebo model関係(クローズド)をダウンロードして
+```
+fnames='decoration
+earthquake
+electronics
+food
+furniture
+kitchen
+miscellaneous
+shapes
+stationery
+tools
+jsk_models
+hospital_models'
+
+tmp_model_path=''
+for fname in ${fnames}; do
+    tmp_model_path=${tmp_model_path}:/home/leus/gazebo_models/${fname}
+done
+
+export GAZEBO_MODEL_PATH=${GAZEBO_MODEL_PATH}:${tmp_model_path}
+export GAZEBO_RESOURCE_PATH=/home/leus/gazebo_models/jsk_worlds
+```
+みたいな感じでパスに追加しておく
 
 # Gazebo起動
 ```
