@@ -1,6 +1,18 @@
 <launch>
 
-  <include file="$(find teleop_dual_arm)/launch/pointcloud_screenpoint_sample.launch"/>
+  <!-- <include file="$(find teleop_dual_arm)/launch/pointcloud_screenpoint_sample.launch"/> -->
+
+  <include file="$(find teleop_dual_arm)/launch/pointcloud_screenpoint_sample.launch">
+    <arg name="base_frame"      default="xtion_link" />
+    <arg name="image"           default="/xtion/rgb" />
+    <arg name="image_type"      default="image_raw" />
+    <arg name="points"          default="/xtion/depth/points" />
+    <arg name="USE_VIEW"        default="false" />
+    <arg name="publish_base_footprint_camera_frame" default="xtion_link" />
+  </include>
+
+  <!-- needed for awake ConnectionBasedNodelet (or set ~always_subscribe)-->
+  <node pkg="rostopic" type="rostopic" name="dummy_subscribe" args="echo /pointcloud_screenpoint_nodelet/output_point"/>
 
   <node pkg="jsk_topic_tools" type="tf_to_pose.py" name="tf_to_pose">
     <remap from="~output" to="dual_arm_center"/>
