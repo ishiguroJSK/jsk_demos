@@ -14,5 +14,6 @@
   <run_depend>sensor_msgs</run_depend>
 
   <export>
+    <gazebo plugin_path="${prefix}/lib" />
   </export>
 </package>
