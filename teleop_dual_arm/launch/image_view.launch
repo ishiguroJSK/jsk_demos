@@ -1,0 +1,6 @@
+<launch>
+
+  <!-- <node pkg="image_view2" type="image_view2" name="aa" args="image:=/xtion/rgb/image_raw camera_info:=/xtion/rgb/camera_infoimage_transport:=compressed"/> -->
+  <node pkg="image_view2" type="image_view2" name="aa" args="image:=/xtion/rgb/image_raw camera_info:=/xtion/rgb/camera_info image_transport:=compressed"/>
+
+</launch>

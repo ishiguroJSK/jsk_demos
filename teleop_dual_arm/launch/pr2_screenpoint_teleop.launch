@@ -1,0 +1,35 @@
+<launch>
+
+  <!-- <include file="$(find teleop_dual_arm)/launch/pointcloud_screenpoint_sample.launch"/> -->
+
+  <include file="$(find teleop_dual_arm)/launch/pointcloud_screenpoint_sample.launch">
+    <arg name="base_frame"      default="wide_stereo_optical_frame" />
+    <arg name="image"           default="/wide_stereo/left" />
+    <arg name="image_type"      default="image_raw" />
+    <arg name="points"          default="/wide_stereo/points2" />
+    <arg name="USE_VIEW"        default="false" />
+    <arg name="publish_base_footprint_camera_frame" default="wide_stereo_optical_frame" />
+  </include>
+
+  <!-- needed for awake ConnectionBasedNodelet (or set ~always_subscribe)-->
+  <node pkg="rostopic" type="rostopic" name="dummy_subscribe" args="echo /pointcloud_screenpoint_nodelet/output_point"/>
+
+  <node pkg="jsk_topic_tools" type="tf_to_pose.py" name="tf_to_pose">
+    <remap from="~output" to="dual_arm_center"/>
+    <rosparam>
+      src_frame: base_link
+      dst_frame: /ray_target
+      rate: 100
+    </rosparam>
+  </node>
+
+  <node pkg="teleop_dual_arm" type="PR2ScreenPoint2DualArmPose.py" name="PR2ScreenPoint2DualArmPose"/>
+
+  <!-- <node pkg="rviz" type="rviz" name="rviz" args="-d $(find teleop_dual_arm)/iiwa14d.rviz"/> -->
+
+
+  <include file="$(find rwt_image_view)/launch/rwt_image_view.launch"/>
+
+  <!-- <node pkg="teleop_dual_arm" type="pr2-realtime-ik.l" name="pr2_realtime_ik"/> -->
+  
+</launch>
