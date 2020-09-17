@@ -24,7 +24,7 @@
   			     (* (send msg :pose :position :x) 1000)
   			     (* (send msg :pose :position :y) 1000)
   			     (* (send msg :pose :position :z) 1000))
-  		       :rpy (float-vector 0 0 0)))
+  		       :rpy (float-vector 0 0.2617 0)))
 	      )
   (:rarm-cb (msg)
               (setq rarm-tgt (make-cascoords
@@ -32,7 +32,7 @@
 			     (* (send msg :pose :position :x) 1000)
 			     (* (send msg :pose :position :y) 1000)
 			     (* (send msg :pose :position :z) 1000))
-		       :rpy (float-vector 0 0 0)))
+		       :rpy (float-vector 0 0.2617 0)))
 	      )
   )
 
@@ -40,8 +40,11 @@
 (setq m (instance realtime-ik-class :init))
 
 (defun run ()
-  (send *pr2* :head :neck-p :joint-angle 45)
+  (send *pr2* :reset-pose)
+  (send *pr2* :head :neck-p :joint-angle 60)
   (send *pr2* :torso_lift_joint :joint-angle 300)
+  (send *ri* :angle-vector (send *robot* :angle-vector) 3000)
+  (send *ri* :wait-interpolation)
 
   (do-until-key
    (send *robot* :inverse-kinematics (list larm-tgt rarm-tgt)
