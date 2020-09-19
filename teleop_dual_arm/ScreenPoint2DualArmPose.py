@@ -31,7 +31,7 @@ if __name__ == '__main__':
     tgtid = 0 if (pos[1]>0) else 1 ## divide center pose into L R
     vals[tgtid].header.frame_id = "iiwa_torso_link"
     vals[tgtid].header.stamp = stamp
-    vals[tgtid].pose.position.x = pos[0]
+    vals[tgtid].pose.position.x = pos[0] + 0.02 ## push obj 0.02m
     vals[tgtid].pose.position.y = pos[1]
     vals[tgtid].pose.position.z = pos[2]
     vals[tgtid].pose.orientation.x = 0

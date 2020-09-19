@@ -19,21 +19,27 @@
 	 (ros::subscribe "master_rarm_pose" geometry_msgs::PoseStamped #'send self :rarm-cb)
 	 )
   (:larm-cb (msg)
-              (setq larm-tgt (make-cascoords
-  		       :pos (float-vector
-  			     (* (send msg :pose :position :x) 1000)
-  			     (* (send msg :pose :position :y) 1000)
-  			     (* (send msg :pose :position :z) 1000))
-  		       :rpy (float-vector 0 0.2617 0)))
-	      )
+	    (setq raw-pos
+		  (map float-vector #'(lambda (x) (* x 1000))
+		       (list
+			(send msg :pose :position :x)
+			(send msg :pose :position :y)
+			(send msg :pose :position :z))))
+	    (setq llim #f( 500   0  600))
+	    (setq ulim #f(1000 500 1200))
+	    (setq safe-pos (vmin (vmax raw-pos llim) ulim))
+	    (setq larm-tgt (make-coords :pos safe-pos)))
   (:rarm-cb (msg)
-              (setq rarm-tgt (make-cascoords
-		       :pos (float-vector
-			     (* (send msg :pose :position :x) 1000)
-			     (* (send msg :pose :position :y) 1000)
-			     (* (send msg :pose :position :z) 1000))
-		       :rpy (float-vector 0 0.2617 0)))
-	      )
+	    (setq raw-pos
+		  (map float-vector #'(lambda (x) (* x 1000))
+		       (list
+			(send msg :pose :position :x)
+			(send msg :pose :position :y)
+			(send msg :pose :position :z))))
+	    (setq llim #f( 500 -500  600))
+	    (setq ulim #f(1000    0 1200))
+	    (setq safe-pos (vmin (vmax raw-pos llim) ulim))
+	    (setq rarm-tgt (make-coords :pos safe-pos)))
   )
 
 
@@ -46,19 +52,23 @@
   (send *ri* :angle-vector (send *robot* :angle-vector) 3000)
   (send *ri* :wait-interpolation)
 
-  (do-until-key
-   (send *robot* :inverse-kinematics (list larm-tgt rarm-tgt)
-	 :move-target (list (send *robot* :larm :end-coords) (send *robot* :rarm :end-coords))
-	 :translation-axis (list t t)
-	 :rotation-axis (list :z :z)
-	 :use-torso nil
-	 :stop 2
-	 :revert-if-fail nil :debug-view nil
-	 )
-   (send *ri* :angle-vector (send *robot* :angle-vector) 100)
-   (unix:usleep 100000)
-   (ros::spin-once)
-   )
+  (ros::rate 10)
+  (while (ros::ok)
+    (send *robot* :inverse-kinematics (list larm-tgt rarm-tgt)
+	  :move-target (list (send *robot* :larm :end-coords) (send *robot* :rarm :end-coords))
+	  :translation-axis (list t t)
+	  :rotation-axis (list :z :z)
+	  :use-torso nil
+	  :stop 2
+	  :revert-if-fail nil :debug-view nil
+	  )
+    (send *ri* :angle-vector (send *robot* :angle-vector) 100)
+    (send *irtviewer* :draw-objects :flush nil)
+    (dolist (tgt (list larm-tgt rarm-tgt)) (send tgt :draw-on :flush t))
+    (x::window-main-one)
+    (ros::spin-once)
+    (ros::sleep)
+    )
   )
 
 (run)
