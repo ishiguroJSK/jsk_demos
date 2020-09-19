@@ -21,7 +21,7 @@
     </rosparam>
   </node>
 
-  <node pkg="teleop_dual_arm" type="PR2ScreenPoint2DualArmPose.py" name="PR2ScreenPoint2DualArmPose"/>
+  <node pkg="teleop_dual_arm" type="PR2ScreenPoint2DualArmPose2.py" name="PR2ScreenPoint2DualArmPose"/>
 
   <!-- <node pkg="rviz" type="rviz" name="rviz" args="-d $(find teleop_dual_arm)/iiwa14d.rviz"/> -->
 

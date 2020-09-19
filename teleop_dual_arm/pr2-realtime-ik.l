@@ -28,7 +28,7 @@
 	    (setq llim #f( 500   0  600))
 	    (setq ulim #f(1000 500 1200))
 	    (setq safe-pos (vmin (vmax raw-pos llim) ulim))
-	    (setq larm-tgt (make-coords :pos safe-pos)))
+	    (setq larm-tgt (make-coords :pos safe-pos :rpy (float-vector 0 0 (/ pi 2) ))))
   (:rarm-cb (msg)
 	    (setq raw-pos
 		  (map float-vector #'(lambda (x) (* x 1000))
@@ -57,7 +57,8 @@
     (send *robot* :inverse-kinematics (list larm-tgt rarm-tgt)
 	  :move-target (list (send *robot* :larm :end-coords) (send *robot* :rarm :end-coords))
 	  :translation-axis (list t t)
-	  :rotation-axis (list :z :z)
+	  :rotation-axis (list t t)
+	  ;; :rotation-axis (list :z :z)
 	  :use-torso nil
 	  :stop 2
 	  :revert-if-fail nil :debug-view nil
