@@ -20,8 +20,8 @@
 	 )
   (:larm-cb (msg)
 	    (setq raw-coords (ros::tf-pose->coords (send msg :pose)))
-	    (setq llim #f( 500   0  600))
-	    (setq ulim #f(1000 500 1200))
+	    (setq llim #f( 500 -200  600))
+	    (setq ulim #f(1000  500 1200))
 	    (setq larm-tgt
 		  (make-coords
 		   :pos (vmin (vmax (send raw-coords :pos) llim) ulim)
@@ -29,7 +29,7 @@
   (:rarm-cb (msg)
 	    (setq raw-coords (ros::tf-pose->coords (send msg :pose)))
 	    (setq llim #f( 500 -500  600))
-	    (setq ulim #f(1000    0 1200))
+	    (setq ulim #f(1000  200 1200))
 	    (setq rarm-tgt
 		  (make-coords
 		   :pos (vmin (vmax (send raw-coords :pos) llim) ulim)
@@ -52,10 +52,6 @@
 	  :move-target (list (send *robot* :larm :end-coords) (send *robot* :rarm :end-coords))
 	  :translation-axis (list t t)
 	  :rotation-axis (list t t)
-<<<<<<< Updated upstream
-	  ;; :rotation-axis (list :z :z)
-=======
->>>>>>> Stashed changes
 	  :use-torso nil
 	  :stop 2
 	  :revert-if-fail nil :debug-view nil
