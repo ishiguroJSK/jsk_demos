@@ -1,10 +1,32 @@
 <launch>
 
+  <arg name="is_real" default="true" />
+  <arg name="rviz"    default="true" />
+
+  <arg name="device"     default="kinect_head"                              if="$(arg is_real)"/>
+  <arg name="device"     default="head_mount_kinect2"                   unless="$(arg is_real)"/>
+  <arg name="base_frame" default="head_mount_kinect_rgb_optical_frame"      if="$(arg is_real)"/>
+  <arg name="base_frame" default="head_mount_kinect2_rgb_optical_frame" unless="$(arg is_real)"/>
+
+  
+  <group unless="$(arg is_real)">
+    <include file="$(find pr2_gazebo)/launch/pr2_empty_world.launch">
+      <arg name="KINECT2" value="true" />
+    </include>
+    <include file="$(find pr2eus_tutorials)/launch/gazebo/spawn_objects.launch"/>
+    <include file="$(find rwt_image_view)/launch/rwt_image_view.launch"/>
+  </group>
+
+  <include file="$(find teleop_dual_arm)/launch/my_segmentation.launch">
+    <arg name="rviz"      default="$(arg rviz)" />
+    <arg name="device"           default="$(arg device)" />
+  </include>
+
   <include file="$(find teleop_dual_arm)/launch/pointcloud_screenpoint_sample.launch">
-    <arg name="base_frame"      default="head_mount_kinect_rgb_optical_frame" />
-    <arg name="image"           default="/kinect_head/rgb" />
+    <arg name="base_frame"      default="$(arg base_frame)" />
+    <arg name="image"           default="/$(arg device)/rgb" />
     <arg name="image_type"      default="image_raw" />
-    <arg name="points"          default="/kinect_head/depth_registered/points" />
+    <arg name="points"          default="/$(arg device)/depth_registered/points" />
     <arg name="USE_VIEW"        default="false" />
     <arg name="publish_base_footprint_camera_frame" default="head_mount_kinect_rgb_optical_frame" />
   </include>
@@ -23,11 +45,6 @@
 
   <node pkg="teleop_dual_arm" type="PR2ScreenPoint2DualArmPose2.py" name="PR2ScreenPoint2DualArmPose"/>
 
-  <!-- <node pkg="rviz" type="rviz" name="rviz" args="-d $(find teleop_dual_arm)/iiwa14d.rviz"/> -->
+  <node pkg="teleop_dual_arm" type="pr2-realtime-ik.l" name="pr2_realtime_ik" output="log"/>
 
-
-  <!-- <include file="$(find rwt_image_view)/launch/rwt_image_view.launch"/> -->
-
-  <node pkg="teleop_dual_arm" type="pr2-realtime-ik.l" name="pr2_realtime_ik"/>
-  
 </launch>
