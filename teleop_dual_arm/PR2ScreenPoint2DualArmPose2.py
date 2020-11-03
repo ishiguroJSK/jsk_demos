@@ -105,16 +105,24 @@ class MouseCmd2ArmPose():
     self.clk_tgt_pos[self.current_lr_mode].header.frame_id = "base_link"
     self.clk_tgt_pos[self.current_lr_mode].header.stamp = stamp
     self.clk_tgt_pos[self.current_lr_mode].pose.position = Point( pos[0], pos[1], pos[2])
-    self.clk_tgt_pos[self.current_lr_mode].pose.orientation = Quaternion(0,0,0,1)
+
+    if self.current_lr_mode == "l":
+      q = tf.transformations.quaternion_from_euler(math.pi/2, 0, 0)
+    else:
+      q = tf.transformations.quaternion_from_euler(-math.pi/2, 0, 0)
+
+    self.clk_tgt_pos[self.current_lr_mode].pose.orientation = Quaternion(q[0],q[1],q[2],q[3])
     self.ee_pose[self.current_lr_mode] = copy.deepcopy(self.clk_tgt_pos[self.current_lr_mode])
 
+
+    
   def cmd_str_cb(self, msg):
     print msg
     str_l = msg.data.split("_")
     if len(str_l) == 2:
       lr, cmd = str_l # l_open
     elif len(str_l) == 3:
-      lr, cmd, val = str_l # l_turn_90
+      lr, cmd, val = str_l # r_turn_90
     else:
       print "something wrong"
       return
@@ -129,13 +137,20 @@ class MouseCmd2ArmPose():
     if cmd in ["open", "close"]:
       gripper_cmd = Pr2GripperCommandActionGoal()
       gripper_cmd.goal.command.position = ( 0.0 if cmd == "close" else 0.1)
-      gripper_cmd.goal.command.max_effort = 25
+      gripper_cmd.goal.command.max_effort = 75
       self.g_pubs[lr].publish(gripper_cmd)
 
     if cmd == "pull":
       self.is_pulling[lr] = True
       self.t_cmd[lr] = rospy.Time.now()
 
+    if cmd == "turn":
+      dq = tf.transformations.quaternion_from_euler(math.radians(10), 0, 0)
+      q_now = [self.ee_pose[lr].pose.orientation.x, self.ee_pose[lr].pose.orientation.y, self.ee_pose[lr].pose.orientation.z, self.ee_pose[lr].pose.orientation.w]
+      q_next = tf.transformations.quaternion_multiply(dq, q_now)
+      self.ee_pose[lr].pose.orientation = Quaternion(q_next[0],q_next[1],q_next[2],q_next[3])
+
+      
 
   
 
