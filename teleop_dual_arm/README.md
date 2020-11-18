@@ -115,3 +115,5 @@ catkin bt --force-cmake
 - iiwa14dのxacroを完全新規作成でなく，片手ずつスマートに継承して書けないか
 - EffortJointControlへ移行＋トルク司令
 - OpenPoseとかでノートPCのインカムでも両手Pose入力できないか
+
+# test
