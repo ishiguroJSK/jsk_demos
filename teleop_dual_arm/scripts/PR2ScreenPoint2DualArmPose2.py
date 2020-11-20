@@ -97,7 +97,6 @@ class MouseCmd2ArmPose():
   def bbp_cb(self, msg):
     self.clk_tgt_pos[self.current_lr_mode].header.frame_id = "base_link"
     self.clk_tgt_pos[self.current_lr_mode].header.stamp = rospy.Time.now()
-    self.clk_tgt_pos[self.current_lr_mode].pose
     self.ee_pose[self.current_lr_mode] = copy.deepcopy(self.clk_tgt_pos[self.current_lr_mode])
     
 
@@ -114,8 +113,9 @@ class MouseCmd2ArmPose():
     self.clk_tgt_pos[self.current_lr_mode].header.frame_id = "base_link"
     self.clk_tgt_pos[self.current_lr_mode].header.stamp = stamp
     self.clk_tgt_pos[self.current_lr_mode].pose.position = Point( pos[0], pos[1], pos[2])
-    self.clk_tgt_pos[self.current_lr_mode].pose.orientation = Quaternion(0,0,0,1)
-    self.ee_pose[self.current_lr_mode] = copy.deepcopy(self.clk_tgt_pos[self.current_lr_mode])
+    # self.clk_tgt_pos[self.current_lr_mode].pose.orientation = Quaternion(0,0,0,1)
+    self.ee_pose[self.current_lr_mode].header = self.clk_tgt_pos[self.current_lr_mode].header
+    self.ee_pose[self.current_lr_mode].pose.position = self.clk_tgt_pos[self.current_lr_mode].pose.position
 
   def cmd_str_cb(self, msg):
     print msg
@@ -138,7 +138,7 @@ class MouseCmd2ArmPose():
     if cmd in ["open", "close"]:
       gripper_cmd = Pr2GripperCommandActionGoal()
       gripper_cmd.goal.command.position = ( 0.0 if cmd == "close" else 0.1)
-      gripper_cmd.goal.command.max_effort = 25
+      gripper_cmd.goal.command.max_effort = 50
       self.g_pubs[lr].publish(gripper_cmd)
 
     if cmd == "pull":
