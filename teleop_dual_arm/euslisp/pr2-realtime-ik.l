@@ -19,27 +19,17 @@
 	 (ros::subscribe "master_rarm_pose" geometry_msgs::PoseStamped #'send self :rarm-cb)
 	 )
   (:larm-cb (msg)
-	    (setq raw-pos
-		  (map float-vector #'(lambda (x) (* x 1000))
-		       (list
-			(send msg :pose :position :x)
-			(send msg :pose :position :y)
-			(send msg :pose :position :z))))
-	    (setq llim #f( 500   0  600))
-	    (setq ulim #f(1000 500 1200))
-	    (setq safe-pos (vmin (vmax raw-pos llim) ulim))
+	    (setq raw-coords (ros::tf-pose->coords (send msg :pose)))
+	    (setq llim #f( 500 -20  600))
+	    (setq ulim #f(1200 500 1200))
+	    (setq safe-pos (vmin (vmax (send raw-coords :pos) llim) ulim))
 	    (setq larm-tgt (make-coords :pos safe-pos :rpy (float-vector 0 0 (/ pi 2) ))))
   (:rarm-cb (msg)
-	    (setq raw-pos
-		  (map float-vector #'(lambda (x) (* x 1000))
-		       (list
-			(send msg :pose :position :x)
-			(send msg :pose :position :y)
-			(send msg :pose :position :z))))
+	    (setq raw-coords (ros::tf-pose->coords (send msg :pose)))
 	    (setq llim #f( 500 -500  600))
-	    (setq ulim #f(1000    0 1200))
-	    (setq safe-pos (vmin (vmax raw-pos llim) ulim))
-	    (setq rarm-tgt (make-coords :pos safe-pos)))
+	    (setq ulim #f(1200   20 1200))
+	    (setq safe-pos (vmin (vmax (send raw-coords :pos) llim) ulim))
+	    (setq rarm-tgt (make-coords :pos safe-pos :rot (send raw-coords :rot))))
   )
 
 

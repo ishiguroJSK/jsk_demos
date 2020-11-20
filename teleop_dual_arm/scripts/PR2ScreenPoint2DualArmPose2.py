@@ -35,6 +35,9 @@ class MouseCmd2ArmPose():
 
     self.cmd_str_sub = rospy.Subscriber("/rwt_command_string", String, self.cmd_str_cb)
     self.sub = rospy.Subscriber("/pointcloud_screenpoint_nodelet/output_point", PointStamped, self.click_cb)
+    # self.bbp_sub = rospy.Subscriber("/PickNearestBoundingBox/output_pose", PoseStamped, self.bbp_cb)
+
+
     self.tfl = tf.TransformListener()
     print "start ROS pub loop"
   
@@ -91,6 +94,12 @@ class MouseCmd2ArmPose():
 
       rospy.Rate(self.HZ).sleep()
 
+  def bbp_cb(self, msg):
+    self.clk_tgt_pos[self.current_lr_mode].header.frame_id = "base_link"
+    self.clk_tgt_pos[self.current_lr_mode].header.stamp = rospy.Time.now()
+    self.clk_tgt_pos[self.current_lr_mode].pose
+    self.ee_pose[self.current_lr_mode] = copy.deepcopy(self.clk_tgt_pos[self.current_lr_mode])
+    
 
 
   def click_cb(self, msg):
@@ -136,6 +145,11 @@ class MouseCmd2ArmPose():
       self.is_pulling[lr] = True
       self.t_cmd[lr] = rospy.Time.now()
 
+    if cmd == "turn":
+      q_org = self.ee_pose[lr].pose.orientation
+      q_rel = tf.transformations.quaternion_from_euler(math.pi/2,0,0)
+      q_new = tf.transformations.quaternion_multiply(q_rel, [q_org.x, q_org.y, q_org.z, q_org.w])
+      self.ee_pose[lr].pose.orientation = Quaternion(q_new[0],q_new[1],q_new[2],q_new[3])
 
   
 

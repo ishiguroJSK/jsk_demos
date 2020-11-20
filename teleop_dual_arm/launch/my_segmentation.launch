@@ -93,7 +93,7 @@
   </node>
 
   <node name="adding_images" pkg="opencv_apps" type="adding_images">
-    <remap from="/image1" to="$(arg device)/rgb/image_raw" />
+    <remap from="/image1" to="/$(arg device)/rgb/image_raw" />
     <remap from="/image2" to="/depth_image_creator/output_image" />
     <rosparam>
       alpha: 0.7
