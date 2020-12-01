@@ -7,6 +7,7 @@
 (setq *robot* *pr2*)
 (setq larm-tgt (make-coords :pos #f(500 300 1000)))
 (setq rarm-tgt (make-coords :pos #f(500 -300 1000)))
+(setq head-tgt (make-coords))
 
 (objects (list *robot* larm-tgt rarm-tgt))
 
@@ -17,6 +18,7 @@
   (:init ()
 	 (ros::subscribe "master_larm_pose" geometry_msgs::PoseStamped #'send self :larm-cb)
 	 (ros::subscribe "master_rarm_pose" geometry_msgs::PoseStamped #'send self :rarm-cb)
+	 (ros::subscribe "master_head_pose" geometry_msgs::PoseStamped #'send self :head-cb)
 	 )
   (:larm-cb (msg)
 	    (setq raw-coords (ros::tf-pose->coords (send msg :pose)))
@@ -30,6 +32,8 @@
 	    (setq ulim #f(1200  200 1200))
 	    (setq safe-pos (vmin (vmax (send raw-coords :pos) llim) ulim))
 	    (setq rarm-tgt (make-coords :pos safe-pos :rot (send raw-coords :rot))))
+  (:head-cb (msg)
+	    (setq head-tgt (ros::tf-pose->coords (send msg :pose)))
   )
 
 
@@ -53,6 +57,8 @@
 	  :stop 2
 	  :revert-if-fail nil :debug-view nil
 	  )
+    (send *robot* :head :neck-p :joint-angle (elt (send head-tgt :pos) 1))
+    (send *robot* :head :neck-y :joint-angle (elt (send head-tgt :pos) 2))
     (send *ri* :angle-vector (send *robot* :angle-vector) 100)
     (send *irtviewer* :draw-objects :flush nil)
     (dolist (tgt (list larm-tgt rarm-tgt)) (send tgt :draw-on :flush t))
