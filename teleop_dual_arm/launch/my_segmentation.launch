@@ -86,14 +86,14 @@
     <remap from="~info" to="/$(arg device)/rgb/camera_info" />
     <rosparam>
       use_approximate: true
-      max_queue_size: 3
+      max_queue_size: 100
       max_pub_queue_size: 1
       max_sub_queue_size: 1
     </rosparam>
   </node>
 
   <node name="adding_images" pkg="opencv_apps" type="adding_images">
-    <remap from="/image1" to="/$(arg device)/rgb/image_raw" />
+    <remap from="/image1" to="/$(arg device)/rgb/image_color" />
     <remap from="/image2" to="/depth_image_creator/output_image" />
     <rosparam>
       alpha: 0.7

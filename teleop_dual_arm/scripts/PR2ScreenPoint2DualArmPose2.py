@@ -32,6 +32,9 @@ class MouseCmd2ArmPose():
       self.is_pulling[lr] = False
       self.ep_pubs[lr]  = rospy.Publisher('/master_'+lr+'arm_pose', PoseStamped, queue_size=1)
       self.g_pubs[lr]   = rospy.Publisher('/'+lr+'_gripper_controller/gripper_action/goal', Pr2GripperCommandActionGoal, queue_size=1)
+    
+    self.head_pub       = rospy.Publisher('/master_head_pose', PoseStamped, queue_size=1)
+    self.head_pose = PoseStamped()
 
     self.cmd_str_sub = rospy.Subscriber("/rwt_command_string", String, self.cmd_str_cb)
     self.sub = rospy.Subscriber("/pointcloud_screenpoint_nodelet/output_point", PointStamped, self.click_cb)
@@ -128,9 +131,23 @@ class MouseCmd2ArmPose():
       print "something wrong"
       return
 
-    if lr not in ["l", "r"]:
-      print "something wrong"
-      return
+    if cmd == "look":
+      if lr == "l":
+        self.head_pose.pose.position.z += 0.03
+      if lr == "r":
+        self.head_pose.pose.position.z -= 0.03
+      if lr == "u":
+        self.head_pose.pose.position.y -= 0.03
+      if lr == "d":
+        self.head_pose.pose.position.y += 0.03
+      if lr == "c":
+        self.head_pose = PoseStamped()
+
+      self.head_pub.publish(self.head_pose)
+      
+    # if lr not in ["l", "r"]:
+    #   print "something wrong"
+    #   return
 
     if cmd == "mode":
       self.current_lr_mode = lr
@@ -138,7 +155,7 @@ class MouseCmd2ArmPose():
     if cmd in ["open", "close"]:
       gripper_cmd = Pr2GripperCommandActionGoal()
       gripper_cmd.goal.command.position = ( 0.0 if cmd == "close" else 0.1)
-      gripper_cmd.goal.command.max_effort = 50
+      gripper_cmd.goal.command.max_effort = 75
       self.g_pubs[lr].publish(gripper_cmd)
 
     if cmd == "pull":
@@ -150,6 +167,7 @@ class MouseCmd2ArmPose():
       q_rel = tf.transformations.quaternion_from_euler(math.pi/2,0,0)
       q_new = tf.transformations.quaternion_multiply(q_rel, [q_org.x, q_org.y, q_org.z, q_org.w])
       self.ee_pose[lr].pose.orientation = Quaternion(q_new[0],q_new[1],q_new[2],q_new[3])
+
 
   
 
